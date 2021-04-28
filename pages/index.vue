@@ -558,6 +558,29 @@ body {
     }
   }
 
+  button {
+    padding: 0.2em 1em;
+    background: var(--button-bg-color);
+    border-radius: 100px;
+    border: 0;
+    color: var(--button-font-color);
+
+    &[disabled] {
+      opacity: 0.5;
+    }
+
+    &.icon-btn {
+      padding: 0;
+      background: initial;
+      border-radius: 0;
+      color: var(--icon-button-font-color);
+
+      i {
+        margin: 0 0.5em;
+      }
+    }
+  }
+
   // checkbox
   input[type=checkbox] {
     -webkit-appearance: none;
@@ -633,28 +656,6 @@ body {
       border-radius: var(--button-border-radius);
       background: #fffc;
       cursor: pointer;
-    }
-  }
-
-  button {
-    padding: 0.2em 1em;
-    background: var(--button-bg-color);
-    border-radius: 100px;
-    border: 0;
-    color: var(--button-font-color);
-
-    &[disabled] {
-      opacity: 0.5;
-    }
-
-    &.icon-btn {
-      padding: 0;
-      background: initial;
-      color: var(--icon-button-font-color);
-
-      i {
-        margin: 0 0.5em;
-      }
     }
   }
 

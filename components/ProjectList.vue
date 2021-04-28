@@ -112,6 +112,12 @@ export default {
       background: var(--track-bg-color--active);
       border-color: var(--track-border-color--active);
     }
+
+    .project-action {
+      button {
+        padding: 0.8em  0.5em !important;
+      }
+    }
   }
 }
 </style>

@@ -207,7 +207,7 @@ export default {
 
 .countdown-text {
   display: inline-block;
-  width: 1em;
+  width: 2em;
   text-align: center;
   font-weight: bold;
 }

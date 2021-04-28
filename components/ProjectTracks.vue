@@ -214,6 +214,7 @@ export default {
     margin: 10px 0;
     padding: 10px;
   }
+
   .track {
     display: grid;
     grid-template-columns: 80px 1fr auto;
@@ -268,6 +269,12 @@ export default {
         top: 0;
         background: #f00;
         border-radius: 100px;
+      }
+    }
+
+    .track-action {
+      button {
+        padding: 0.8em  0.5em !important;
       }
     }
   }
