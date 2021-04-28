@@ -148,10 +148,6 @@ import { availableKeys, availableSamples } from '@/assets/data/pad_config'
 
 export default {
   props: {
-    context: {
-      type: AudioContext,
-      default: null
-    },
     project: {
       type: Object,
       default: () => {}
@@ -163,6 +159,10 @@ export default {
     recording: {
       type: Boolean,
       default: false
+    },
+    contextCurrentTime: {
+      type: Number,
+      default: 0
     },
     track: {
       type: Object,
@@ -183,6 +183,7 @@ export default {
       }
     }
   },
+
   data () {
     const isHitted = {}
 
@@ -199,10 +200,10 @@ export default {
       editBtnIdx: null,
       clonedTrack: {},
       selectedSample: null,
-      selectedSampleCategory: [],
-      contextCurrentTime: 0
+      selectedSampleCategory: []
     }
   },
+
   computed: {
     samples () {
       if (this.selectedSampleCategory.length) {
@@ -238,31 +239,29 @@ export default {
       return this.playing ? currentHits : []
     }
   },
+
   watch: {
-    playing: {
-      immediate: true,
-      handler (val) {
-        if (val) {
-          window.requestAnimationFrame(this.updateContextCurrentTime)
-        }
+    recording (val) {
+      if (val) {
+        this.editSampleMode = false
       }
     },
     selectedSample (val) {
       this.$emit('preview', val)
     }
   },
+
   mounted () {
     document.addEventListener('keydown', this.onKeyDown)
     document.addEventListener('keyup', this.onKeyUp)
   },
-  methods: {
-    updateContextCurrentTime () {
-      this.contextCurrentTime = this.context.currentTime
 
-      if (this.playing) {
-        window.requestAnimationFrame(this.updateContextCurrentTime)
-      }
-    },
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.onKeyDown)
+    document.removeEventListener('keyup', this.onKeyUp)
+  },
+
+  methods: {
     hitStart (keyIdx) {
       if (this.editSampleMode) {
         this.editBtnIdx = keyIdx
@@ -280,12 +279,20 @@ export default {
 
     // keyboard hendler
     onKeyDown ($event) {
+      if (this.editModalVisible || this.editSampleMode) {
+        return
+      }
+
       const keyIdx = availableKeys.findIndex(item => item === $event.key)
       if (keyIdx > -1) {
         this.hitStart(keyIdx)
       }
     },
     onKeyUp ($event) {
+      if (this.editModalVisible || this.editSampleMode) {
+        return
+      }
+
       const keyIdx = availableKeys.findIndex(item => item === $event.key)
       if (keyIdx > -1) {
         this.hitEnd(keyIdx)
@@ -301,6 +308,7 @@ export default {
     showEditModal () {
       this.clonedTrack = JSON.parse(JSON.stringify(this.track))
       this.editModalVisible = true
+      this.editSampleMode = false
     },
     hideEditModal (save) {
       this.editModalVisible = false
@@ -334,10 +342,6 @@ export default {
         /* eslint-enable */
       }
     }
-  },
-  beforeDestro () {
-    document.removeEventListener('keydown', this.onKeyDown)
-    document.removeEventListener('keyup', this.onKeyUp)
   }
 }
 </script>

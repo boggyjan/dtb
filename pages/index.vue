@@ -8,12 +8,13 @@
         @back="showProjects()"
       />
 
+      <!-- eslint-disable -->
       <ProjectTracks
         v-if="mode === 1"
         :project="project"
-        :context="context"
         :playing="playing"
         :recording="recording"
+        :contextCurrentTime="contextCurrentTime"
         @update="updateProject($event)"
         @showPad="showPad($event)"
         @back="showProjects()"
@@ -23,16 +24,15 @@
         v-if="mode === 2"
         :project="project"
         :track="track"
-        :context="context"
         :playing="playing"
         :recording="recording"
+        :contextCurrentTime="contextCurrentTime"
         @hitStart="hitStart($event)"
         @hitEnd="hitEnd($event)"
         @close="showProject()"
         @preview="playSampleById($event)"
       />
 
-      <!-- eslint-disable -->
       <Rec
         v-if="mode === 1 || mode === 2"
         :mode="mode"
@@ -69,6 +69,7 @@ export default {
       context: null,
       analyser: null,
       gainNode: null,
+      contextCurrentTime: 0,
       // hittingSources: {}
 
       prewriteInterval: null,
@@ -99,11 +100,20 @@ export default {
       return this.tracks[this.currentTrackIdx]
     }
   },
+
   watch: {
     projects: {
       deep: true,
       handler (val) {
         window.localStorage.setItem('projects', JSON.stringify(this.projects))
+      }
+    },
+    playing: {
+      immediate: true,
+      handler (val) {
+        if (val) {
+          window.requestAnimationFrame(this.updateContextCurrentTime)
+        }
       }
     }
   },
@@ -114,6 +124,7 @@ export default {
     this.initAudio()
     await this.loadSamples()
   },
+
   methods: {
     // 這邊ios會在跳離app之後出現問題
     initAudio () {
@@ -122,11 +133,11 @@ export default {
       }
 
       this.prewriteTime = 0
-      this.context = new (window.AudioContext || window.webkitAudioContext)()
 
+      // audio api
+      this.context = new (window.AudioContext || window.webkitAudioContext)()
       this.analyser = this.context.createAnalyser()
       this.gainNode = this.context.createGain()
-
       this.analyser.connect(this.context.destination)
       this.gainNode.gain.value = 0.25
       this.gainNode.connect(this.analyser)
@@ -199,8 +210,11 @@ export default {
       this.playSample(sample)
 
       if (this.recording) {
-        const currentTime = this.context.currentTime
+        const currentTime = this.contextCurrentTime
+
         const speed = 60 / this.project.speed
+        const countdownTime = speed * this.project.beats
+
         const measureTime = speed * this.project.beats
         const numMeasures = Math.floor(currentTime / measureTime) % this.project.measures
         const pos = currentTime % measureTime / measureTime
@@ -216,7 +230,8 @@ export default {
         const totalTime = speed * this.project.beats * this.project.measures
 
         if (currentTime % totalTime > totalTime / 2) {
-          this.playSampleById(sample.id, currentTime + totalTime)
+          // this.playSampleById(sample.id, currentTime + totalTime)
+          this.playSampleById(sample.id, currentTime + totalTime + countdownTime)
         }
       }
 
@@ -236,8 +251,10 @@ export default {
     },
 
     playSampleById (sampleId, time) {
-      const sample = availableSamples.find(item => item.id === sampleId)
-      this.playSample(sample, time)
+      if (sampleId) {
+        const sample = availableSamples.find(item => item.id === sampleId)
+        this.playSample(sample, time)
+      }
     },
     async playSample (sample, time) {
       if (!sample.audioBuffer) {
@@ -275,12 +292,13 @@ export default {
 
     play () {
       // reset context to get current currentTime
-      this.initAudio()
+      if (!this.recording) {
+        this.initAudio()
+      }
+      // this.initAudio()
 
       this.playing = true
       this.prewrite(true)
-
-      // this.recCountdownText = 0
     },
     stop () {
       this.recording = this.playing = false
@@ -298,9 +316,25 @@ export default {
       // this.play()
     },
 
+    updateContextCurrentTime () {
+      if (this.recording) {
+        const speed = 60 / this.project.speed
+        const recCountDownTime = speed * this.project.beats
+        this.contextCurrentTime = this.context.currentTime - recCountDownTime
+      } else {
+        this.contextCurrentTime = this.context.currentTime
+      }
+
+      if (this.playing) {
+        window.requestAnimationFrame(this.updateContextCurrentTime)
+      }
+    },
+
     countdownBeep () {
       const speed = 60 / this.project.speed
       const totalTime = speed * this.project.beats
+
+      // this.prewriteTime = totalTime
 
       // recording: write metronome with countdown beats
       const count = this.project.beats * this.project.measures
@@ -337,7 +371,10 @@ export default {
       // 預先寫入整個 project tracks一次，再用setTimeout在演奏到一半時寫入後續
       // speed => 120 = 1 beat per 0.5s
       const speed = 60 / this.project.speed
+      // const countdownTime = speed * this.project.beats
+
       const totalTime = speed * this.project.beats * this.project.measures
+      const recCountDownTime = speed * this.project.beats
 
       // recording: write metronome
       if (this.recording) {
@@ -358,7 +395,8 @@ export default {
           const sampleId = sampleIds[hit.sample]
           const time = this.prewriteTime +
             (hit.measure * speed * this.project.beats) +
-            (hit.pos * speed * this.project.beats)
+            (hit.pos * speed * this.project.beats) +
+            (this.recording ? recCountDownTime : 0)
 
           this.playSampleById(sampleId, time)
         })
@@ -452,6 +490,7 @@ export default {
 
   background: var(--bg-color);
   padding-bottom: 100px;
+  font-family: sans-serif;
 }
 
 body {

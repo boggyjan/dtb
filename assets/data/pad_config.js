@@ -5,103 +5,103 @@ const availableSamples = [
   {
     id: 'clap1',
     name: 'Clap 1',
-    source: '/audio_sources/Clap 1.wav',
+    source: '/audio_sources/clap1.mp3',
     tags: ['Clap']
   },
   {
     id: 'clap2',
     name: 'Clap 2',
-    source: '/audio_sources/Clap 2.wav',
+    source: '/audio_sources/clap2.mp3',
     tags: ['Clap']
   },
   {
     id: 'crash1',
     name: 'Crash 1',
-    source: '/audio_sources/Crash 1.wav',
+    source: '/audio_sources/crash1.mp3',
     tags: ['Crash']
   },
   {
     id: 'crash2',
     name: 'Crash 2',
-    source: '/audio_sources/Crash 2.wav',
+    source: '/audio_sources/crash2.mp3',
     tags: ['Crash']
   },
   {
     id: 'cymbal1',
     name: 'Cymbal 1',
-    source: '/audio_sources/Cymbal 1.wav',
+    source: '/audio_sources/cymbal1.mp3',
     tags: ['Cymbal']
   },
   {
     id: 'cymbal2',
     name: 'Cymbal 2',
-    source: '/audio_sources/Cymbal 2.wav',
+    source: '/audio_sources/cymbal2.mp3',
     tags: ['Cymbal']
   },
   {
     id: 'hihat1',
     name: 'Hi Hat 1',
-    source: '/audio_sources/Hi Hat 1.wav',
+    source: '/audio_sources/hihat1.mp3',
     tags: ['Hi Hat']
   },
   {
     id: 'hihat2',
     name: 'Hi Hat 2',
-    source: '/audio_sources/Hi Hat 2.wav',
+    source: '/audio_sources/hihat2.mp3',
     tags: ['Hi Hat']
   },
   {
     id: 'kick1',
     name: 'Kick 1',
-    source: '/audio_sources/Kick 1.wav',
+    source: '/audio_sources/kick1.mp3',
     tags: ['Kick']
   },
   {
     id: 'kick2',
     name: 'Kick 2',
-    source: '/audio_sources/Kick 2.wav',
+    source: '/audio_sources/kick2.mp3',
     tags: ['Kick']
   },
   {
     id: 'openhihat1',
     name: 'Open Hi Hat 1',
-    source: '/audio_sources/Open Hi Hat 1.wav',
+    source: '/audio_sources/openhihat1.mp3',
     tags: ['Open Hi Hat', 'Hi Hat']
   },
   {
     id: 'openhihat2',
     name: 'Open Hi Hat 2',
-    source: '/audio_sources/Open Hi Hat 2.wav',
+    source: '/audio_sources/openhihat2.mp3',
     tags: ['Open Hi Hat', 'Hi Hat']
   },
   {
     id: 'perc1',
     name: 'Perc 1',
-    source: '/audio_sources/Perc 1.wav',
+    source: '/audio_sources/perc1.mp3',
     tags: ['Percussion']
   },
   {
     id: 'perc2',
     name: 'Perc 2',
-    source: '/audio_sources/Perc 2.wav',
+    source: '/audio_sources/perc2.mp3',
     tags: ['Percussion']
   },
   {
     id: 'ride',
     name: 'Ride',
-    source: '/audio_sources/Ride.wav',
+    source: '/audio_sources/ride.mp3',
     tags: ['Ride']
   },
   {
     id: 'snare1',
     name: 'Snare 1',
-    source: '/audio_sources/Snare 1.wav',
+    source: '/audio_sources/snare1.mp3',
     tags: ['Snare']
   },
   {
     id: 'snare2',
     name: 'Snare 2',
-    source: '/audio_sources/Snare 2.wav',
+    source: '/audio_sources/snare2.mp3',
     tags: ['Snare']
   }
 ]

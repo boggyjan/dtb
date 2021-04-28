@@ -117,10 +117,6 @@
 <script>
 export default {
   props: {
-    context: {
-      type: AudioContext,
-      default: null
-    },
     project: {
       type: Object,
       default: () => {}
@@ -132,15 +128,20 @@ export default {
     recording: {
       type: Boolean,
       default: false
+    },
+    contextCurrentTime: {
+      type: Number,
+      default: 0
     }
   },
+
   data () {
     return {
       editModalVisible: false,
-      clonedProject: {},
-      contextCurrentTime: 0
+      clonedProject: {}
     }
   },
+
   computed: {
     tracks () {
       return this.project.tracks
@@ -152,24 +153,8 @@ export default {
       return this.playing ? Math.floor(this.contextCurrentTime % totalTime / measureTime) : -1
     }
   },
-  watch: {
-    playing: {
-      immediate: true,
-      handler (val) {
-        if (val) {
-          window.requestAnimationFrame(this.updateContextCurrentTime)
-        }
-      }
-    }
-  },
-  methods: {
-    updateContextCurrentTime () {
-      this.contextCurrentTime = this.context.currentTime
 
-      if (this.playing) {
-        window.requestAnimationFrame(this.updateContextCurrentTime)
-      }
-    },
+  methods: {
     showEditModal () {
       this.clonedProject = JSON.parse(JSON.stringify(this.project))
       this.editModalVisible = true
