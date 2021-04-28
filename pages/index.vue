@@ -18,6 +18,7 @@
         @update="updateProject($event)"
         @showPad="showPad($event)"
         @back="showProjects()"
+        @removeHits="removeHits()"
       />
 
       <Pad
@@ -44,6 +45,7 @@
         @stop="stop()"
         @rec="rec()"
         @update="updateProject($event)"
+        @removeHits="removeHits()"
       />
       <!-- eslint-enable -->
     </div>
@@ -420,6 +422,12 @@ export default {
       oscillator.connect(this.gainNode)
       oscillator.start(startTime)
       oscillator.stop(startTime + duration)
+    },
+
+    async removeHits () {
+      if (await this.$confirm('Are you sure?')) {
+        this.track.hits = []
+      }
     }
   }
 }

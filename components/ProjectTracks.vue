@@ -65,12 +65,23 @@
           </div>
           <div class="track-action">
             <button
-              :disabled="playing || recording"
+              :disabled="playing"
               class="icon-btn"
+              title="Remove"
               @click.prevent.stop="removeTrack(idx)"
             >
               <i class="far fa-trash-alt" />
               <!-- Remove -->
+            </button>
+
+            <button
+              :disabled="playing"
+              class="icon-btn clean-rec-btn"
+              title="Clear all"
+              @click.prevent.stop="$emit('removeHits')"
+            >
+              <i class="fas fa-eraser" />
+              <!-- Rec -->
             </button>
           </div>
         </div>

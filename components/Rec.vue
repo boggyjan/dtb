@@ -12,6 +12,7 @@
         :disabled="playing"
         :class="{ active: recording }"
         class="icon-btn rec-btn"
+        title="Rec"
         @click="$emit('rec')"
       >
         <i v-if="!recCountdownText" class="fas fa-record-vinyl" />
@@ -23,6 +24,7 @@
       <button
         v-if="!playing && !recording"
         class="icon-btn"
+        title="Play"
         @click="$emit('play')"
       >
         <i class="fas fa-play" />
@@ -31,10 +33,22 @@
       <button
         v-if="playing || recording"
         class="icon-btn"
+        title="Stop"
         @click="$emit('stop')"
       >
         <i class="fas fa-stop" />
         <!-- Stop -->
+      </button>
+
+      <button
+        v-if="mode === 2"
+        :disabled="playing"
+        class="icon-btn clean-rec-btn"
+        title="Clear all"
+        @click="$emit('removeHits')"
+      >
+        <i class="fas fa-eraser" />
+        <!-- Rec -->
       </button>
     </div>
     <div class="project-info right">
