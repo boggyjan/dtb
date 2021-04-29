@@ -41,6 +41,7 @@
         :playing="playing"
         :recording="recording"
         :recCountdownText="recCountdownText"
+        :contextCurrentTime="contextCurrentTime"
         @play="play()"
         @stop="stop()"
         @rec="rec()"
@@ -497,12 +498,11 @@ export default {
   --pad-button-color--16: #a0d072;
 
   background: var(--bg-color);
-  padding-bottom: 100px;
   font-family: sans-serif;
 }
 
 body {
-  margin: 0;
+  margin: 75px 0 100px 0;
 }
 
 .__dtb {
@@ -671,7 +671,9 @@ body {
   // header footer
   .header-bar,
   .footer-bar {
-    position: sticky;
+    position: fixed;
+    left: 0;
+    right: 0;
     top: 0;
     z-index: 1;
     display: grid;
@@ -703,8 +705,6 @@ body {
   .footer-bar {
     position: fixed;
     top: initial;
-    left: 0;
-    right: 0;
     bottom: 0;
     border-bottom: initial;
     border-top: 1px solid var(--grid-line-color);
@@ -745,6 +745,51 @@ body {
 
   .main {
     padding: 10px;
+  }
+
+  .track-preview {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 3px;
+
+    .measure {
+      flex: 1;
+      padding: 3px;
+      background: #fff1;
+      transition: background 0.3s;
+
+      &.active {
+        background: #fff3;
+      }
+    }
+
+    @mixin sampleColors {
+      @for $i from 1 through 16 {
+        &:nth-child(#{$i}) {
+          .hit {
+            background: var(--pad-button-color--#{$i});
+          }
+        }
+      }
+    }
+
+    .sample {
+      height: 2px;
+      margin-bottom: 1px;
+      position: relative;
+      background: #0006;
+
+      @include sampleColors;
+    }
+
+    .hit {
+      width: 5px;
+      height: 2px;
+      position: absolute;
+      top: 0;
+      background: #f00;
+      border-radius: 100px;
+    }
   }
 }
 </style>

@@ -43,6 +43,13 @@
             </button>
           </div>
         </div>
+
+        <button
+          class="add-btn"
+          @click="addProject()"
+        >
+          <i class="fas fa-plus" />
+        </button>
       </div>
     </div>
   </div>
@@ -118,6 +125,16 @@ export default {
         padding: 0.8em  0.5em !important;
       }
     }
+  }
+
+  .add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    margin: 25px auto;
+    background: var(--light-gray);
   }
 }
 </style>

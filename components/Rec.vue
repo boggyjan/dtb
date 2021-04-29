@@ -6,6 +6,17 @@
       }
     </component>
 
+    <div
+      v-if="playing || recording"
+      :class="{ recording }"
+      class="progress-bar"
+    >
+      <div
+        class="progress"
+        :style="`width: ${ recProgress }%;`"
+      />
+    </div>
+
     <div class="rec-action">
       <button
         v-if="mode === 2"
@@ -52,14 +63,14 @@
       </button>
     </div>
     <div class="project-info right">
-      {{ project.beats }} Beats x {{ project.measures }}
-      Speed
-      {{ project.speed }}
       <button
         :disabled="playing || recording"
         class="icon-btn"
         @click="showEditModal()"
       >
+        {{ project.beats }} Beats x {{ project.measures }}
+        Speed
+        {{ project.speed }}
         <i class="far fa-edit" />
         <!-- Edit -->
       </button>
@@ -164,6 +175,10 @@ export default {
     recCountdownText: {
       type: Number,
       default: 0
+    },
+    contextCurrentTime: {
+      type: Number,
+      default: 0
     }
   },
   data () {
@@ -178,6 +193,12 @@ export default {
     },
     recAnimationSpeed () {
       return 60 / this.project.speed
+    },
+    recProgress () {
+      const speed = 60 / this.project.speed
+      const totalTime = speed * this.project.beats * this.project.measures
+
+      return this.contextCurrentTime % totalTime / totalTime * 100
     }
   },
   methods: {
@@ -210,6 +231,24 @@ export default {
   width: 2em;
   text-align: center;
   font-weight: bold;
+}
+
+.progress-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right:0;
+
+  .progress {
+    height: 1px;
+    background: var(--green);
+  }
+
+  &.recording {
+    .progress {
+      background: var(--light-red);
+    }
+  }
 }
 
 @keyframes breath {

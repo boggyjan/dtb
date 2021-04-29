@@ -45,6 +45,28 @@
           }}
         </div>
       </div>
+
+      <div class="track-preview">
+        <div
+          v-for="(measure, mIdx) in project.measures"
+          :key="`measure_${mIdx}`"
+          class="measure"
+          :class="{ active: mIdx === currentMeasure }"
+        >
+          <div
+            v-for="(sample, sIdx) in track.samples"
+            :key="`sample_${mIdx}_${sIdx}`"
+            class="sample"
+          >
+            <div
+              v-for="(hit, hIdx) in track.hits.filter(hit => hit.sample === sIdx && hit.measure === measure - 1)"
+              :key="`hit_${mIdx}_${sIdx}_${hIdx}`"
+              :style="`left: ${hit.pos * 100}%`"
+              class="hit"
+            />
+          </div>
+        </div>
+      </div>
     </div>
 
     <PopupModal
@@ -365,6 +387,12 @@ export default {
       background: var(--red);
       color: var(--white);
     }
+  }
+}
+
+.pad-mode {
+  .track-preview {
+    margin-top: 1em;
   }
 }
 

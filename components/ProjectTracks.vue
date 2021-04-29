@@ -198,16 +198,6 @@ export default {
 </script>
 
 <style lang="scss">
-@mixin sampleColors {
-  @for $i from 1 through 16 {
-    &:nth-child(#{$i}) {
-      .hit {
-        background: var(--pad-button-color--#{$i});
-      }
-    }
-  }
-}
-
 // tracks
 .tracks {
   .no-tracks {
@@ -235,41 +225,6 @@ export default {
 
     .track-name {
       word-break: break-all;
-    }
-
-    .track-preview {
-      display: grid;
-      grid-auto-flow: column;
-      grid-gap: 3px;
-
-      .measure {
-        flex: 1;
-        padding: 3px;
-        background: #fff1;
-        transition: background 0.3s;
-
-        &.active {
-          background: #fff3;
-        }
-      }
-
-      .sample {
-        height: 2px;
-        margin-bottom: 1px;
-        position: relative;
-        background: #0006;
-
-        @include sampleColors;
-      }
-
-      .hit {
-        width: 5px;
-        height: 2px;
-        position: absolute;
-        top: 0;
-        background: #f00;
-        border-radius: 100px;
-      }
     }
 
     .track-action {
