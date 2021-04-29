@@ -146,7 +146,7 @@
                 {{ sample.name }}
               </div>
               <div class="sample-preview">
-                <i class="fas fa-volume-down" />
+                <i class="fas fa-check" />
               </div>
             </div>
           </div>
@@ -481,10 +481,19 @@ export default {
     align-items: center;
     border: 1px solid var(--modal-separator-color);
     border-radius: var(--button-border-radius);
+    transition: border-color 0.3s color 0.3s;
+
+    .sample-preview {
+      opacity: 0;
+    }
 
     &.active {
       border-color: var(--primary);
       color: var(--primary);
+
+      .sample-preview {
+        opacity: 1;
+      }
     }
   }
 }
