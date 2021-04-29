@@ -1,6 +1,7 @@
 <template>
   <client-only>
     <div class="__dtb">
+      <!-- eslint-disable -->
       <ProjectList
         v-if="mode === 0"
         :projects="projects"
@@ -8,7 +9,6 @@
         @back="showProjects()"
       />
 
-      <!-- eslint-disable -->
       <ProjectTracks
         v-if="mode === 1"
         :project="project"
@@ -473,9 +473,9 @@ export default {
   --transition-sec: 0.3s;
 
   --track-border-color: var(--gray);
-  --track-border-color--active: var(--primary);
+  // --track-border-color--active: var(--primary);
   --track-bg-color: #161616;
-  --track-bg-color--active: #262626;
+  // --track-bg-color--active: #262626;
 
   --pad-button-color--1: #a7e6d0;
   --pad-button-color--2: #deedc1;
@@ -708,16 +708,6 @@ body {
     bottom: 0;
     border-bottom: initial;
     border-top: 1px solid var(--grid-line-color);
-
-    .rec-action {
-      button {
-        font-size: 1.2em;
-      }
-    }
-
-    .project-info {
-      font-size: 0.75em;
-    }
   }
 
   .form {

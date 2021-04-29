@@ -217,36 +217,50 @@ export default {
 </script>
 
 <style lang="scss">
-.rec-btn {
-  &.active {
-    // 防止按兩次
-    pointer-events: none;
-    opacity: 1 !important;
-    color: var(--warning) !important;
-  }
-}
-
-.countdown-text {
-  display: inline-block;
-  width: 2em;
-  text-align: center;
-  font-weight: bold;
-}
-
-.progress-bar {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right:0;
-
-  .progress {
-    height: 1px;
-    background: var(--green);
+.footer-bar {
+  .rec-action {
+    button {
+      font-size: 1.2em;
+    }
   }
 
-  &.recording {
+  .rec-btn {
+    &.active {
+      // 防止按兩次
+      pointer-events: none;
+      opacity: 1 !important;
+      color: var(--warning) !important;
+    }
+
+    width: 40px;
+  }
+
+  .project-info {
+    font-size: 0.75em;
+  }
+
+  .countdown-text {
+    display: inline-block;
+    width: 2em;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right:0;
+
     .progress {
-      background: var(--light-red);
+      height: 1px;
+      background: var(--green);
+    }
+
+    &.recording {
+      .progress {
+        background: var(--light-red);
+      }
     }
   }
 }

@@ -63,6 +63,7 @@ export default {
       default: () => []
     }
   },
+
   methods: {
     addProject () {
       /* eslint-disable */
@@ -114,11 +115,11 @@ export default {
     border-radius: var(--button-border-radius);
     transition: background 0.3s, border 0.3s;
 
-    &:hover,
-    &.active {
-      background: var(--track-bg-color--active);
-      border-color: var(--track-border-color--active);
-    }
+    // &:hover,
+    // &.active {
+    //   background: var(--track-bg-color--active);
+    //   border-color: var(--track-border-color--active);
+    // }
 
     .project-action {
       button {

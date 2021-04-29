@@ -246,15 +246,23 @@ export default {
       const tags = this.availableSamples.map(item => item.tags).flat()
       return tags.reduce((unique, item) => unique.includes(item) ? unique : [...unique, item], [])
     },
+    speed () {
+      return 60 / this.project.speed
+    },
+    measureTime () {
+      return this.speed * this.project.beats
+    },
+    totalTime () {
+      return this.measureTime * this.project.measures
+    },
+    currentMeasure () {
+      return Math.floor(this.contextCurrentTime % this.totalTime / this.measureTime)
+    },
     currentHits () {
-      const speed = 60 / this.project.speed
-      const measureTime = speed * this.project.beats
-      const totalTime = speed * this.project.beats * this.project.measures
-      const currentMeasure = Math.floor(this.contextCurrentTime % totalTime / measureTime)
-      const currentPos = Math.floor(this.contextCurrentTime % measureTime / measureTime * 100) / 100
+      const currentPos = Math.floor(this.contextCurrentTime % this.measureTime / this.measureTime * 100) / 100
 
       const currentHits = this.track.hits.filter(item =>
-        item.measure === currentMeasure &&
+        item.measure === this.currentMeasure &&
         Math.floor(item.pos * 10) === Math.floor(currentPos * 10)
       ).map(item => item.sample)
 
