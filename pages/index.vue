@@ -459,6 +459,7 @@ export default {
   --modal-border-radius: 5px;
   --modal-header-border-color: var(--gray);
   --modal-footer-border-color: var(--gray);
+  --modal-separator-color: var(--gray);
 
   --button-bg-color: var(--white);
   --button-font-color: var(--dark-gray);
@@ -591,11 +592,12 @@ body {
     min-width: 50px;
     max-height: 26px;
     min-height: 26px;
-    background: transparent;
+    margin-left: 0;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     vertical-align: middle;
+    background: transparent;
     cursor: pointer;
     transition: var(--transition-sec);
 

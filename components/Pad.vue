@@ -109,8 +109,10 @@
       title="Edit Pad"
       @close="hideEditSampleModal()"
     >
-      <div class="form edit-grid">
-        Category:
+      <div class="instruments-form">
+        <div class="section-title">
+          Category
+        </div>
         <div class="tags">
           <label
             v-for="tag in sampleTags"
@@ -128,8 +130,27 @@
 
         <hr>
 
+        <div class="section-title">
+          Instruments
+        </div>
         <div class="sample-select">
-          <select v-model="selectedSample">
+          <div class="samples">
+            <div
+              v-for="sample in samples"
+              :key="`sample_${sample.id}`"
+              :class="{ active: sample.id === selectedSample }"
+              class="sample"
+              @click="selectSampleById(sample.id)"
+            >
+              <div class="sample-name">
+                {{ sample.name }}
+              </div>
+              <div class="sample-preview">
+                <i class="fas fa-volume-down" />
+              </div>
+            </div>
+          </div>
+          <!-- <select v-model="selectedSample">
             <option :value="undefined">
               Please Select
             </option>
@@ -140,10 +161,10 @@
             >
               {{ sample.name }}
             </option>
-          </select>
-          <button @click="$emit('preview', selectedSample)">
+          </select> -->
+          <!-- <button @click="$emit('preview', selectedSample)">
             play
-          </button>
+          </button> -->
         </div>
       </div>
 
@@ -275,10 +296,10 @@ export default {
       if (val) {
         this.editSampleMode = false
       }
-    },
-    selectedSample (val) {
-      this.$emit('preview', val)
     }
+    // selectedSample (val) {
+    //   this.$emit('preview', val)
+    // }
   },
 
   mounted () {
@@ -371,6 +392,11 @@ export default {
         this.track.samples = this.clonedTrack.samples
         /* eslint-enable */
       }
+    },
+
+    selectSampleById (sampleId) {
+      this.selectedSample = sampleId
+      this.$emit('preview', sampleId)
     }
   }
 }
@@ -434,9 +460,32 @@ export default {
   }
 }
 
+.instruments-form {
+  .section-title {
+    margin-bottom: 10px;
+  }
+}
+
 .sample-select {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-gap: 20px;
+  .samples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+
+  .sample {
+    padding: 5px 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 10px;
+    align-items: center;
+    border: 1px solid var(--modal-separator-color);
+    border-radius: var(--button-border-radius);
+
+    &.active {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+  }
 }
 </style>
