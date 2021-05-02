@@ -434,6 +434,7 @@ export default {
 
     muteTrack (idx) {
       this.tracks[idx].muted = !this.tracks[idx].muted
+      this.$forceUpdate()
     }
   }
 }
