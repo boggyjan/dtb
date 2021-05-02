@@ -205,7 +205,7 @@ export default {
     },
     contextCurrentTime: {
       type: Number,
-      default: 0
+      default: -1
     },
     track: {
       type: Object,

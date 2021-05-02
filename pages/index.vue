@@ -19,6 +19,7 @@
         @showPad="showPad($event)"
         @back="showProjects()"
         @removeHits="removeHits()"
+        @muteTrack="muteTrack($event)"
       />
 
       <Pad
@@ -391,7 +392,7 @@ export default {
       }
 
       // write tracks
-      this.project.tracks.forEach((track) => {
+      this.tracks.filter(track => !track.muted).forEach((track) => {
         const sampleIds = track.samples
 
         track.hits.forEach((hit) => {
@@ -429,6 +430,10 @@ export default {
       if (await this.$confirm('Are you sure?')) {
         this.track.hits = []
       }
+    },
+
+    muteTrack (idx) {
+      this.tracks[idx].muted = !this.tracks[idx].muted
     }
   }
 }
@@ -578,6 +583,7 @@ body {
 
       i {
         margin: 0 0.5em;
+        font-size: 1.2em;
       }
     }
   }

@@ -42,6 +42,24 @@
           <div class="track-name">
             {{ track.name }}
           </div>
+          <div class="track-mute">
+            <button
+              :class="{ muted: track.muted }"
+              :disabled="playing"
+              class="icon-btn"
+              title="mute"
+              @click.prevent.stop="$emit('muteTrack', idx)"
+            >
+              <i
+                v-if="!track.muted"
+                class="fas fa-volume-down"
+              />
+              <i
+                v-else
+                class="fas fa-volume-mute"
+              />
+            </button>
+          </div>
           <div class="track-preview">
             <div
               v-for="(measure, mIdx) in project.measures"
@@ -207,7 +225,7 @@ export default {
 
   .track {
     display: grid;
-    grid-template-columns: 80px 1fr auto;
+    grid-template-columns: 80px 25px 1fr auto;
     grid-gap: 10px;
     align-items: center;
     margin: 10px 0;
@@ -225,6 +243,12 @@ export default {
 
     .track-name {
       word-break: break-all;
+    }
+
+    .track-mute {
+      .muted {
+        color: var(--primary);
+      }
     }
 
     .track-action {

@@ -87,6 +87,7 @@
             Measures
           </div>
           <div class="field">
+            <!-- 這邊有點難操作，看要加個加減號之類的還是什麼 -->
             <input
               v-model.number="clonedProject.measures"
               type="range"
