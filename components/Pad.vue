@@ -211,17 +211,6 @@ export default {
       type: Object,
       default: () => {
         return {
-          name: 'track1',
-          samples: ['kick1', 'kick2', 'crash1', 'crash2', 'clap1', 'snare1'], // 最多能有16個，順序照key排
-          hits: [
-            /*
-            {
-              sample: 0,
-              measure: 2,
-              pos: 0.23
-            }
-            */
-          ]
         }
       }
     }

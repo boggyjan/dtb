@@ -197,7 +197,7 @@ export default {
     addTrack () {
       /*eslint-disable */
       this.project.tracks.push({
-        name: 'new track',
+        name: 'New Track',
         // 最多能有16個，順序照key排
         samples: [],
         hits: []

@@ -108,7 +108,7 @@ const availableSamples = [
 
 const defaultProjects = [
   {
-    name: 'new project',
+    name: 'New Project',
     // 小節數
     measures: 2,
     // 速度 一拍 60/speed
@@ -117,7 +117,7 @@ const defaultProjects = [
     beats: 4,
     tracks: [
       {
-        name: 'new track',
+        name: 'New Track',
         // 最多能有16個，順序照key排
         samples: ['clap1', 'clap2', 'crash1', 'crash2', 'cymbal1', 'cymbal2', 'hihat1', 'hihat2', 'kick1', 'kick2', 'openhihat1', 'openhihat2', 'perc1', 'perc2', 'snare1', 'snare2'],
         // samples: ['clap1'],
