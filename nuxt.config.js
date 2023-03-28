@@ -1,6 +1,6 @@
 export default {
   server: {
-    port: 128, // 星野源の誕生日
+    port: 1280, // 星野源の誕生日
     host: '0.0.0.0' // default: localhost
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
