@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "DTB",
+      name: "dtb.boggy.tw",
       script: "npm start",
       watch: true,
       env: {
