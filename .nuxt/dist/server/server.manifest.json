@@ -1,0 +1,21 @@
+{
+  "entry": "server.js",
+  "files": {
+    "components/pad.js": "components/pad.js",
+    "components/popup-modal.js": "components/popup-modal.js",
+    "components/project-list.js": "components/project-list.js",
+    "components/project-tracks.js": "components/project-tracks.js",
+    "components/rec.js": "components/rec.js",
+    "pages/index.js": "pages/index.js",
+    "server.js": "server.js"
+  },
+  "maps": {
+    "components/pad.js": "components/pad.js.map",
+    "components/popup-modal.js": "components/popup-modal.js.map",
+    "components/project-list.js": "components/project-list.js.map",
+    "components/project-tracks.js": "components/project-tracks.js.map",
+    "components/rec.js": "components/rec.js.map",
+    "pages/index.js": "pages/index.js.map",
+    "server.js": "server.js.map"
+  }
+}
