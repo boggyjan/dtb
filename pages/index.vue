@@ -56,6 +56,7 @@
 
 <script>
 import { availableSamples, defaultProjects, beepSample } from '@/assets/data/pad_config'
+import unmute from '@/utils/unmute_ios_audio.js'
 
 export default {
   data () {
@@ -81,7 +82,9 @@ export default {
 
       recCountdownText: 0,
       recCountdownPlayInterval: null,
-      minusRecCountdownTextInterval: null
+      minusRecCountdownTextInterval: null,
+
+      iosMuteUnlocked: false
     }
   },
   head () {
@@ -140,6 +143,12 @@ export default {
 
       // audio api
       this.context = new (window.AudioContext || window.webkitAudioContext)()
+
+      if (!this.iosMuteUnlocked) {
+        unmute(this.context)
+        this.iosMuteUnlocked = true
+      }
+
       this.analyser = this.context.createAnalyser()
       this.gainNode = this.context.createGain()
       this.analyser.connect(this.context.destination)
